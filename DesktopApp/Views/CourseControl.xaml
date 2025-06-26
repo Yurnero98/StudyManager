@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="ModernDesign.CourseControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ModernDesign" 
+             d:DataContext="{d:DesignInstance Type=local:CourseCollectionViewModel, IsDesignTimeCreatable=True}"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="1000">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Background="#ECF0F1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" BorderBrush="#CCCCCC" BorderThickness="1" CornerRadius="10" Margin="20">
+            <ListBox ItemsSource="{Binding Courses}"
+                     SelectedItem="{Binding SelectedCourse}"
+                     ItemContainerStyle="{StaticResource ListBoxButtonStyle}"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" Padding="10" FontSize="24"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="1" x:Name="EditCoursePanel"
+        HorizontalAlignment="Stretch" BorderBrush="#CCCCCC" BorderThickness="1"
+        CornerRadius="10" Margin="20"
+        Visibility="{Binding SelectedCourse, Converter={StaticResource NullToVisibilityConverter}}">
+            <StackPanel Margin="20">
+                <TextBlock Text="Name" FontSize="20" Margin="0,0,0,10"/>
+                <TextBox Text="{Binding SelectedCourse.Name, UpdateSourceTrigger=PropertyChanged}" FontSize="18" Margin="0,0,0,20"/>
+                <TextBlock Text="Description" FontSize="20" Margin="0,0,0,10"/>
+                <TextBox Text="{Binding SelectedCourse.Description, UpdateSourceTrigger=PropertyChanged}" FontSize="18" Margin="0,0,0,20" TextWrapping="Wrap" AcceptsReturn="True" Height="100"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Save" Command="{Binding SaveCourseCommand}" Style="{StaticResource AddRemoveButtonStyle}" Margin="5"/>
+                    <Button Content="Cancel" Command="{Binding CancelCourseCommand}" Style="{StaticResource AddRemoveButtonStyle}" Margin="5"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10">
+            <Button Content="Add" Command="{Binding AddCourseCommand}" Style="{StaticResource AddRemoveButtonStyle}"/>
+            <Button Content="Delete" Command="{Binding RemoveCourseCommand}" Style="{StaticResource AddRemoveButtonStyle}" Margin="5"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
