@@ -53,9 +53,7 @@ By default, the app uses SQL Server LocalDB. If needed, update the connection st
 You can import/export student data via CSV files using the built-in file dialog. Ensure your CSV format matches the expected headers:
 
 Example CSV format:
-FirstName,LastName
-John,Doe
-Jane,Smith
+<pre> <code>``` FirstName,LastName John,Doe Jane,Smith ```</code> </pre>
 
 ## License
 
