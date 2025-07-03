@@ -21,6 +21,42 @@ Desktop application for managing students, groups, teachers and courses. Built w
 - Separation of concerns via clean architecture
 - Logging using Microsoft.Extensions.Logging
 
+## 🔧 Getting Started
+
+### Prerequisites
+
+- .NET SDK 8.0
+
+- MS SQL Server or LocalDB (default setup uses LocalDB)
+
+### Clone the Repository
+
+- git clone https://github.com/yourusername/StudyManager.git
+- cd StudyManager
+
+### Apply EF Core migrations (optional if database is empty):
+
+- dotnet ef database update --project StudyManager
+
+- Press F5 or click Start to run the application
+
+### Configure the Database (optional)
+
+By default, the app uses SQL Server LocalDB. If needed, update the connection string in appsettings.json:
+
+"ConnectionStrings": {
+  "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=StudyManagerDb;Trusted_Connection=True;MultipleActiveResultSets=true"
+}
+
+### 📂 CSV Import/Export
+
+You can import/export student data via CSV files using the built-in file dialog. Ensure your CSV format matches the expected headers:
+
+Example CSV format:
+FirstName,LastName
+John,Doe
+Jane,Smith
+
 ## License
 
 MIT
